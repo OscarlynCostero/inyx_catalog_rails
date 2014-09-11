@@ -2,7 +2,7 @@ require "inyx_catalogue_rails/engine"
 
 module InyxCatalogueRails
 	#link y nombre para el sitebar automatico en administración
-  SITEBAR = { 'catalogue'=> "/catalogues" }
+  SITEBAR = { 'catalogues'=> "/catalogues" }
 
   # true/false si desea que se autentiquen los usuarios para poder usar el modulo en el frontend
   mattr_accessor :authenticate
