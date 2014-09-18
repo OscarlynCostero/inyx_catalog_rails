@@ -1,6 +1,6 @@
 es:
   engine:
-    catalogues: "Catálogo"
+    catalogue: "Catálogo"
     category: "Categorías"
   catalogues:
     actions:

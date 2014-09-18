@@ -16,8 +16,10 @@
     %br/
     .panel.panel-default
       .panel-heading
+        = link_to catalogues_path, class: "btn btn-default", title: t("engine.catalogue") do
+          %i.fa.fa-list-alt  
         = link_to new_category_catalogue_path, class: "btn btn-default", title: t("admin.buttons.new") do
-          %i.fa.fa-plus-circle        
+          %i.fa.fa-plus-circle   
         %button.btn.btn-default.hidden-xs{"ng-click" => "refresh()", :title => t("category.actions.refresh")}
           %i.fa.fa-refresh#icon-refresh
         %a.btn.btn-default.hidden-xs{"ng-show" => "categories.data.length", "ng-click" => "allSelected()", :title => t("category.actions.select_all")}
