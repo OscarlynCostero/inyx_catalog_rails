@@ -1,0 +1,46 @@
+es:
+  engine:
+    catalogues: "Catálogo"
+  catalogues:
+    actions:
+      new: "Nueva ficha"
+      delete: "Eliminar ficha"
+      edit: "Editar ficha"
+      show: "Ver ficha"
+      search: "Buscar Producto"
+    rif: "Cédula"
+    name: "Nombre"
+    names: "Nombres"
+    last_names: "Apellidos"
+    last_name: "Apellido"
+    sex: "Sexo"
+    email: "Email"
+    birth: "Fecha de nacimiento"
+    phone: "Télefono de habitación"
+    mobile: "Télefono movil"
+    address: "Dirección"
+    academic_level: "Nivel académico"
+    profession: "Profesión"
+    experience: "Experiencia laboral"
+    summary_apptitudes: "Resumen de aptitudes"
+    summary_courses: "Cursos realizados"
+    summary_works: "Resumen de laboral"
+    new:
+      view: "Nuevo Producto"
+      image: "Cargar Imagen del Producto"
+      title: "Nombre del Producto"
+      description: "Descripción del Producto" 
+      price: "Precio del Producto (Opcional)"
+      category: "Selecciona la Categoria del Producto"
+      public: "¿Deseas publicar este producto en la web?"
+      submit: "Registrar Producto"
+    show:
+      view: "Información del Producto"
+      image: "Imagen: "
+      title: "Nombre: "
+      description: "Descripción: " 
+      price: "Precio: "
+      category: "Categoria: "
+      public: "Publicado: "
+
+

@@ -1,0 +1,31 @@
+= simple_form_for(@catalogue) do |f|  
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-th-list
+        = t('catalogues.new.view')
+    .panel-body
+      .form-inputs
+        .field
+          %br/
+          = f.input :image, label: false, as: :file, input_html: { class: 'form-control', placeholder: t('catalogues.new.image')}
+        .field
+          %br/
+          = f.input :title, label: false, input_html: { class: 'form-control', placeholder: t('catalogues.new.title')}
+        .field
+          %br/
+          = f.input :description, as: :text, label: false, input_html: { class: 'form-control', placeholder: t('catalogues.new.description'), :rows => 8 }
+        .field
+          %br/
+          = f.input :prince, label: false, input_html: { class: 'form-control', placeholder: t('catalogues.new.price') }        
+        .field
+          %br/
+          = f.association :category_catalogue, label: false, prompt: t('catalogues.new.category'), input_html: { class: 'form-control'}
+        .field
+          %br/
+          =t('catalogues.new.public')
+          = f.check_box :public, label: false
+      %br/
+    .panel-footer
+      .form-actions
+        = f.button :submit, t('catalogues.new.submit'), class: "pull-right btn btn-warning"
+      .clearfix

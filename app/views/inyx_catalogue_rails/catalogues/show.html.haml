@@ -1,0 +1,31 @@
+%div{ style: "padding:30px; padding-bottom:0px;"}
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-exclamation-circle
+        = t('catalogues.show.view')
+    .panel-body
+      %p#notice= notice
+      %p
+        %strong 
+          = t('catalogues.show.image')
+        = @catalogue.image
+      %p
+        %strong 
+          = t('catalogues.show.title')
+        = @catalogue.title
+      %p{align:"justify"}
+        %strong 
+          = t('catalogues.show.description')
+        = @catalogue.description
+      %p
+        %strong 
+          = t('catalogues.show.prince')
+        = @catalogue.prince
+      %p
+        %strong 
+          = t('catalogues.show.public')
+        = @catalogue.public
+      %p
+        %strong Category catalogue:
+        = @catalogue.category_catalogue.title
+    .panel-footer

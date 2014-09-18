@@ -8,11 +8,12 @@ module InyxCatalogueRails
 
     # GET /catalogues
     def index
-      @catalogues = Catalogue.all
+
     end
 
     # GET /catalogues/1
     def show
+
     end
 
     # GET /catalogues/new
@@ -46,8 +47,10 @@ module InyxCatalogueRails
 
     # DELETE /catalogues/1
     def destroy
-      @catalogue.destroy
-      redirect_to catalogues_url, notice: 'Catalogue was successfully destroyed.'
+      Catalogue.destroy( redefine_destroy params[:ids].split(",") )
+      respond_to do |format|
+        format.html { redirect_to messages_path, notice: 'Mensajes eliminados.' }
+      end
     end
 
     def index_front
@@ -58,14 +61,27 @@ module InyxCatalogueRails
       
     end
 
-    def resolve_layout
-        case action_name
-          when "show_front", "index_front"
-            "application"
-          else 
-            "admin/application"
-        end
+    def all_products      
+      products = Catalogue.all
+      products_json = products.as_json
+      products.each_with_index do |item, index|
+        category_catalogue = CategoryCatalogue.find(item.category_catalogue_id)
+        products_json[index]["category"] = category_catalogue.as_json
       end
+      respond_to do |format|
+        format.html
+        format.json { render :json => products_json }
+      end
+    end
+
+    def resolve_layout
+      case action_name
+        when "show_front", "index_front"
+          "application"
+        else 
+          "admin/application"
+      end
+    end
 
     private
       # Use callbacks to share common setup or constraints between actions.
