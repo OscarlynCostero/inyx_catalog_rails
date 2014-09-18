@@ -27,7 +27,8 @@
         %button#btn-delete.btn.btn-default.hidden-xs{class: "btn-{{btnDelete}}", "ng-click" => "destroy()", :title => t("category.actions.delete_all")}
           %i.fa.fa-trash-o
         %button.btn.btn-default.pull-right.hidden-xs{'disabled'=>"", style:"color:#000"}
-          Página {{page}} 
+          =t("category.actions.page") 
+          {{page}} 
         %button.btn.btn-default.pull-right{"ng-click" => "nextList();"}
           %i.fa.fa-arrow-right
         %button.btn.btn-default.pull-right{"ng-click" => "lastList();"}

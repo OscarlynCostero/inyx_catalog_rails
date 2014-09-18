@@ -1,10 +1,18 @@
-.container
+.container{'ng-controller'=>'indexCatalogueCrtl','ng-init'=>'init()',}
+	.form-inline
+		.form-group
+		.input-group
+			.input-group-addon
+				%i.fa.fa-search
+			%input#input-search{"ng-model" => "buscar.$", :placeholder => t("catalogues.actions.search"), :type => "text"}
+	%br
+	%br
 	.row
-		- @products.each do |product|
-			-if product.public == true
-				.col-sm-6.col-md-4
-					%a.thumbnail{href: "/catalogues/#{product.id}"}
-						= image_tag product.image.to_s
-						.caption
-							%h3
-								= product.title
+		%div{"ng-repeat" => "product in products.data | filter:buscar"}
+			.col-lg-4.col-md-4.col-sm-6
+				%a.thumbnail{href: "/catalogues/{{product.id}}"}
+					%img{src:"{{product.image.url}}"}
+					.caption
+						%h3
+							{{product.title}}
+	
