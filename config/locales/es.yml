@@ -1,6 +1,7 @@
 es:
   engine:
     catalogues: "Catálogo"
+    category: "Categorías"
   catalogues:
     actions:
       new: "Nueva ficha"
@@ -8,6 +9,7 @@ es:
       edit: "Editar ficha"
       show: "Ver ficha"
       search: "Buscar Producto"
+      catalogo: "Catálogo"
     rif: "Cédula"
     name: "Nombre"
     names: "Nombres"
@@ -33,7 +35,7 @@ es:
       price: "Precio del Producto (Opcional)"
       category: "Selecciona la Categoria del Producto"
       public: "¿Deseas publicar este producto en la web?"
-      submit: "Registrar Producto"
+      submit: "Guardar Producto"
     show:
       view: "Información del Producto"
       image: "Imagen: "
@@ -42,5 +44,6 @@ es:
       price: "Precio: "
       category: "Categoria: "
       public: "Publicado: "
+
 
 

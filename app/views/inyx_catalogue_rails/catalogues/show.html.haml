@@ -1,31 +1,40 @@
 %div{ style: "padding:30px; padding-bottom:0px;"}
+  %a.btn.btn-default{href: "/admin/catalogues/",:title => t("catalogues.actions.catalogo")}
+    %i.fa.fa-list-alt
+  %a.btn.btn-default{href: "/admin/catalogues/#{@catalogue.id}/edit", :title => t('admin.actions.edit')}
+    %i.fa.fa-edit
+  =link_to "<i class='fa fa-trash-o'></i>".html_safe, "/admin/catalogues/#{@catalogue.id}", class: "btn btn-default", title: t('admin.actions.delete'), :method => :delete, :data => { :confirm => '¿Estas seguro de querer eliminar este usuario?' }
+  %br
+  %br
   .panel.panel-default
     .panel-heading
       %i.fa.fa-exclamation-circle
         = t('catalogues.show.view')
     .panel-body
       %p#notice= notice
-      %p
-        %strong 
-          = t('catalogues.show.image')
-        = @catalogue.image
-      %p
-        %strong 
-          = t('catalogues.show.title')
-        = @catalogue.title
-      %p{align:"justify"}
-        %strong 
-          = t('catalogues.show.description')
-        = @catalogue.description
-      %p
-        %strong 
-          = t('catalogues.show.prince')
-        = @catalogue.prince
-      %p
-        %strong 
-          = t('catalogues.show.public')
-        = @catalogue.public
-      %p
-        %strong Category catalogue:
-        = @catalogue.category_catalogue.title
+      .col-lg-6
+        %p
+          = image_tag @catalogue.image_url(:thumb).to_s, class: 'thumbnail'
+      .col-lg-6
+        %p
+          %h3
+            = @catalogue.title
+        %p{align:"justify"}
+          %strong 
+            = t('catalogues.show.description')
+          = @catalogue.description
+        %p
+          %strong 
+            = t('catalogues.show.prince')
+          = @catalogue.prince
+        %p
+          %strong 
+            = t('catalogues.show.public')
+          - if @catalogue.public == true
+            %i.fa.fa-check-circle-o{style:"font-size: 20px;"}
+          - else
+            %i.fa.fa-times-circle-o{style:"font-size: 20px;"}
+        %p
+          %strong Category catalogue:
+          = @catalogue.category_catalogue.title
     .panel-footer

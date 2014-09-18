@@ -47,6 +47,17 @@ module InyxCatalogueRails
 
     # DELETE /catalogues/1
     def destroy
+      authorize! :destroy, @catalogue, :message => 'Not authorized as an administrator.'
+      catalogue = InyxCatalogueRails::Catalogue.find(params[:id])
+      unless catalogue == current_user
+        catalogue.destroy
+        redirect_to "/admin/catalogues", :notice => t("notification.delete")
+      else
+        redirect_to "/admin/catalogues", :notice => t("notification.un_delete")
+      end
+    end
+
+    def delete
       Catalogue.destroy( redefine_destroy params[:ids].split(",") )
       respond_to do |format|
         format.html { redirect_to messages_path, notice: 'Mensajes eliminados.' }
@@ -54,7 +65,7 @@ module InyxCatalogueRails
     end
 
     def index_front
-      
+      @products = Catalogue.all
     end
 
     def show_front
