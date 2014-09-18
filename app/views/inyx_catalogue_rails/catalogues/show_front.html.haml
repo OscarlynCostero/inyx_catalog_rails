@@ -1,0 +1,21 @@
+.container
+	%p#notice= notice
+	%p
+		= image_tag @product.image_url(:thumb).to_s, class: 'thumbnail'
+	%p
+		%h3
+			= @product.title
+	%p{align:"justify"}
+		%strong 
+			= t('catalogues.show.description')
+		= @product.description
+	%p
+		%strong 
+			= t('catalogues.show.prince')
+		= @cataloguproduct
+		%strong 
+			= t('catalogues.show.public')		
+	%p
+		%strong 
+			= t('catalogues.show.category')	
+		= @product.category_catalogue.title
