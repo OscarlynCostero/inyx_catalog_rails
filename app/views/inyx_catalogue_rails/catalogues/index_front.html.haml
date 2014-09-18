@@ -7,12 +7,14 @@
 			%input#input-search{"ng-model" => "buscar.$", :placeholder => t("catalogues.actions.search"), :type => "text"}
 	%br
 	%br
-	.row
-		%div{"ng-repeat" => "product in products.data | filter:buscar"}
-			.col-lg-4.col-md-4.col-sm-6
-				%a.thumbnail{href: "/catalogues/{{product.id}}"}
-					%img{src:"{{product.image.url}}"}
-					.caption
-						%h3
-							{{product.title}}
-	
+		.row
+			%div{"ng-repeat" => "product in products.data | filter:buscar"}
+				.col-lg-4.col-md-4.col-sm-6{'ng-if'=>'product.public == true'}
+					%a.thumbnail{href: "/catalogues/{{product.id}}"}
+						%img.img-responsive{src:"{{product.image.url}}", style: "height:280px"}
+						.caption
+							%h3
+								{{product.title}}
+							.label.label-primary
+								{{product.category.title}}
+				
