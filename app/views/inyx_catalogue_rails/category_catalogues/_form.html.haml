@@ -1,0 +1,18 @@
+= simple_form_for(@category_catalogue) do |f|  
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-th-list
+        = t('category.new.view')
+    .panel-body
+      .form-inputs
+        .field
+          %br/
+          = f.input :title, label: false, input_html: { class: 'form-control', placeholder: t('category.new.title')}
+        .field
+          %br/
+          = f.input :description, as: :text,label: false, input_html: { class: 'form-control', placeholder: t('category.new.description')}        
+      %br/
+    .panel-footer
+      .form-actions
+        = f.button :submit, t('category.new.submit'), class: "pull-right btn btn-warning"
+      .clearfix
