@@ -29,7 +29,7 @@ module InyxCatalogueRails
       @category_catalogue = CategoryCatalogue.new(category_catalogue_params)
 
       if @category_catalogue.save
-        redirect_to @category_catalogue, notice: 'Category catalogue was successfully created.'
+        redirect_to "/admin/category_catalogues", notice: 'Category catalogue was successfully created.'
       else
         render :new
       end

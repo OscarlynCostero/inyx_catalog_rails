@@ -7,7 +7,7 @@
         .input-group
           .input-group-addon
             %i.fa.fa-search
-          %input#input-search{"ng-model" => "buscar.$", :placeholder => "Buscar Producto", :type => "text"}  
+          %input#input-search{"ng-model" => "buscar.$", :placeholder => t("catalogues.actions.search"), :type => "text"}  
     .alert{class: 'alert-{{statusAlert}}', 'ng-show'=>"alert==true"} 
       %strong Admin:    
       {{msnAlert}}
@@ -21,11 +21,11 @@
         = link_to category_catalogues_path  , class: "btn btn-default", title: t("engine.category") do
           %i.fa.fa-tags
         
-        %button.btn.btn-default.hidden-xs{"ng-click" => "refresh()", :title => "Actualizar lista de Productos"}
+        %button.btn.btn-default.hidden-xs{"ng-click" => "refresh()", :title => t("catalogues.actions.refresh")}
           %i.fa.fa-refresh#icon-refresh
-        %a.btn.btn-default.hidden-xs{"ng-show" => "products.data.length", "ng-click" => "allSelected(products)", :title => "Seleccionar todos los mensajes"}
+        %a.btn.btn-default.hidden-xs{"ng-show" => "products.data.length", "ng-click" => "allSelected(products)", :title => t("catalogues.actions.select_all")}
           %i.fa.fa-check-square-o
-        %button#btn-delete.btn.btn-default.hidden-xs{class: "btn-{{btnDelete}}", "ng-click" => "destroy()", :title => "Borrar mensajes seleccionados"}
+        %button#btn-delete.btn.btn-default.hidden-xs{class: "btn-{{btnDelete}}", "ng-click" => "destroy()", :title => t("catalogues.actions.delete_all")}
           %i.fa.fa-trash-o
         %button.btn.btn-default.pull-right.hidden-xs{'disabled'=>"", style:"color:#000"}
           Página {{page}} 
@@ -62,7 +62,7 @@
               %td{:style => "width:100%"}
                 %center
                   %i.fa.fa-frown-o
-                  No hay Productos.
+                  = t("catalogues.actions.empty")
               
       .panel-footer
 

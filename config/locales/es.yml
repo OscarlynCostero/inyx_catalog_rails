@@ -10,6 +10,10 @@ es:
       show: "Ver ficha"
       search: "Buscar Producto"
       catalogo: "Catálogo"
+      refresh: "Actualizar lista de productos"
+      select_all: "Seleccionar todos los productos"
+      delete_all: "Borrar productos seleccionados"
+      empty: "No hay productos."
     rif: "Cédula"
     name: "Nombre"
     names: "Nombres"
@@ -43,7 +47,20 @@ es:
       description: "Descripción: " 
       price: "Precio: "
       category: "Categoria: "
-      public: "Publicado: "
+      public: "Publicado: "  
+  category:
+    actions:     
+      search: "Buscar Categorías"
+      catalogo: "Categorías"
+      refresh: "Actualizar lista de categorías"
+      select_all: "Seleccionar todos los categorías"
+      delete_all: "Borrar categorías seleccionados"
+      empty: "No hay categorías."
+    new:
+      view: "Nueva Categoría"
+      title: "Nombre de la Categoría"
+      description: "Descripción del Categoría"       
+      submit: "Guardar Categoría"
 
 
 

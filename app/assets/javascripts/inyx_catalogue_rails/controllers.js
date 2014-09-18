@@ -54,5 +54,56 @@ angular.module('catalogue', [])
 		$scope.alertClose = function(){
 			$scope.alert = false;
 		}
-	}]);
+	}])
+	.controller('indexCategoryCrtl', ['$scope','category', function($scope, category ) {			
+
+			$scope.init = function(){
+				ctrl.pages = {};
+				category.load();
+				$scope.categories = category;
+				$scope.count = 0;
+				$scope.interval_a = ctrl.interval_a;
+				$scope.interval_b = ctrl.interval_b;
+				$scope.page = ctrl.page;
+				$scope.btnDelete = false;
+				$scope.btnAllSelect = false;
+				//Alerts
+				$scope.alert = false;
+				$scope.msnAlert = "Exitosamente!";
+				$scope.statusAlert="success";
+			}
+			$scope.destroy = function() {
+			if (confirm("¿Deseas eliminar los mensajes seleccionados?") == true) {
+				ctrl.removeItemTable($scope.categories);				
+			 	category.destroy(ctrl.selected, $scope);	 	
+			 	ctrl.pageInit($scope);			 		 	
+			 	ctrl.selected = [];
+			}
+			};
+
+			$scope.selected = function(id){
+				ctrl.itemSelected(id, $scope);
+			};	
+
+			$scope.allSelected = function(){
+				ctrl.allItemsSelected($scope, $scope.categories);
+			};
+
+			$scope.refresh = function(){
+				category.load();
+				$scope.categories = category;	
+			}
+
+			$scope.nextList = function(){
+				ctrl.paginateControl($scope, $scope.categories.data.length,"next");
+			}
+
+			$scope.lastList = function(){
+				ctrl.paginateControl($scope, "last");			
+			}
+			$scope.alertClose = function(){
+				$scope.alert = false;
+			}
+			
+		}]);
 
