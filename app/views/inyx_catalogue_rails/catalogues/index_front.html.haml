@@ -3,7 +3,7 @@
 		- @products.each do |product|
 			-if product.public == true
 				.col-sm-6.col-md-4
-					.thumbnail
+					%a.thumbnail{href: "/catalogues/#{product.id}"}
 						= image_tag product.image.to_s
 						.caption
 							%h3

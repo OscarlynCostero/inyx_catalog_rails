@@ -69,7 +69,7 @@ module InyxCatalogueRails
     end
 
     def show_front
-      
+      @product = Catalogue.find(params[:id])
     end
 
     def all_products      

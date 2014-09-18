@@ -19,5 +19,6 @@ InyxCatalogueRails::Engine.routes.draw do
   	end
 
     get 'catalogues/', to: 'catalogues#index_front'  	
+    get 'catalogues/:id', to: 'catalogues#show_front'  
 end
 
