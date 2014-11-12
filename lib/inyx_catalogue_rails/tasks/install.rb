@@ -41,7 +41,7 @@ module InyxCatalogueRails
 
         def copy_files(directories, origin, destination)
           directories.each do |directory|
-            Dir[File.join(origin, directory, 'inyx_employees_rails', '**/*')].each do |file|
+            Dir[File.join(origin, directory, 'inyx_catalogue_rails', '**/*')].each do |file|
               relative  = file.gsub(/^#{origin}\//, '')
               dest_file = File.join(destination, relative)
               dest_dir  = File.dirname(dest_file)
