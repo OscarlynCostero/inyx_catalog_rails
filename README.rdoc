@@ -1,3 +1,47 @@
 = InyxCatalogueRails
 
-This project rocks and uses MIT-LICENSE.
+Es un Engine para crear catalogos para la web
+
+Requerimientos
+
+    Ruby >= 1.9.3
+    Rails >= 3.0.0
+
+Instalación
+
+Añadir la siguiente linea a su Gemfile
+
+gem 'inyx_catalogue_rails', path: '../inyx_cataloges_rails'
+
+Seguido a esto debemos cargar los assets de la gema, agregando lo siguiente
+
+en application.js
+
+//= require inyx_cataloges/application
+
+en application.css
+
+//= require inyx_catalogue_rails/application
+
+Luego importar migraciones y crear las tablas de contactos desde la consola
+
+rake inyx_catalogue_rails:install:migrations 
+
+rake db:migrate
+
+Ubicarse en la ruta del proyecto desde la terminal y ejecutar
+
+Bundle install
+
+Configuración
+
+Para agregar config/initializers/inyx_catalogue_rails.rb y asi estabelecer los datos de configuración debe ejecutar
+
+rake inyx_catalogue_rails:copy_initializer
+
+Nota: Puede obtener las llaves de Recaptcha desde esta dirección Recaptcha Keys
+Vistas
+
+Para copiar las vistas en app/views/inyx_catalogue_rails y asi personalizarlas para adaptarlas a sus necesidades debe ejecutar
+
+rake inyx_catalogue_rails:copy_views
