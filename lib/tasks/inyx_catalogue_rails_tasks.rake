@@ -1,6 +1,6 @@
 require File.expand_path('../../inyx_catalogue_rails/tasks/install', __FILE__)
 
-namespace :employees do
+namespace :catalogue do
 	desc "Copiar inicializador para la configuración"
 	task :copy_initializer do
 		InyxCatalogueRails::Tasks::Install.copy_initializer_file
