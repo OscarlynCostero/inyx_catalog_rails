@@ -13,7 +13,7 @@ module InyxCatalogueRails
         def copy_initializer_file
           print "Agregado archivo de configuración...\n"
           app_path = Rails.root.join("config/initializers")
-          copier.copy_file File.join(gem_path, 'lib/templates/inyx_catalogue.rb'), File.join(app_path, 'inyx_catalogue_rails.rb')
+          copier.copy_file File.join(gem_path, 'lib/templates/inyx_catalogue.rb'), File.join(app_path, 'inyx_catalogue.rb')
         end
 
         def copy_locales_files
