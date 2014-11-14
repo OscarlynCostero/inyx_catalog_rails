@@ -60,7 +60,7 @@ module InyxCatalogueRails
     def delete
       Catalogue.destroy( redefine_destroy params[:ids].split(",") )
       respond_to do |format|
-        format.html { redirect_to messages_path, notice: 'Mensajes eliminados.' }
+        format.html { redirect_to catalogues_path, notice: 'Mensajes eliminados.' }
       end
     end
 
