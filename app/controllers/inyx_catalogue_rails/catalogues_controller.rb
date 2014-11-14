@@ -64,11 +64,7 @@ module InyxCatalogueRails
       end
     end
 
-    def redefine_destroy(params)
-        params.sort.each do |id|
-          params.delete id unless Catalogue.exists? id
-        end
-      end
+    
 
     def index_front
       @products = Catalogue.all
@@ -104,6 +100,12 @@ module InyxCatalogueRails
       # Use callbacks to share common setup or constraints between actions.
       def set_catalogue
         @catalogue = Catalogue.find(params[:id])
+      end
+
+      def redefine_destroy(params)
+        params.sort.each do |id|
+          params.delete id unless Catalogue.exists? id
+        end
       end
 
       # Only allow a trusted parameter "white list" through.
