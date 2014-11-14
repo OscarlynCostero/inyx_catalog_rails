@@ -64,6 +64,12 @@ module InyxCatalogueRails
       end
     end
 
+    def redefine_destroy(params)
+        params.sort.each do |id|
+          params.delete id unless Catalogue.exists? id
+        end
+      end
+
     def index_front
       @products = Catalogue.all
     end

@@ -6,8 +6,8 @@ angular.module('catalogue', [])
 			catalogue.load();
 			$scope.products = catalogue;
 			$scope.count = 0;
-			$scope.interval_a = ctrl.interval_a;
-			$scope.interval_b = ctrl.interval_b;
+			$scope.interval_a = 0;
+			$scope.interval_b = 10;
 			$scope.page = ctrl.page;
 			$scope.btnDelete = false;
 			$scope.btnAllSelect = false;

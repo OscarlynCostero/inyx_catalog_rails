@@ -46,6 +46,8 @@ module InyxCatalogueRails
 
     # DELETE /category_catalogues/1
     def destroy
+      @catalogue = Catalogue.find_by(category_catalogue_id: @category_catalogue.id)
+      @catalogue.destroy
       @category_catalogue.destroy
       redirect_to category_catalogues_url, notice: 'Category catalogue was successfully destroyed.'
     end
