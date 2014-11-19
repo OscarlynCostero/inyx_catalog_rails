@@ -4,7 +4,7 @@ InyxCatalogueRails::Engine.routes.draw do
   		resources :catalogues do
   			collection do
   				#angular
-		  		get 'all_products', to: 'catalogues#all_products'
+		  		get 'all_products', to: 'catalogues#all_products' if InyxCatalogueRails::active_front
           post '/delete', to: 'catalogues#delete'
   			end
   		end
