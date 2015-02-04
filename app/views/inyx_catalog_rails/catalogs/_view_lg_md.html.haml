@@ -1,0 +1,99 @@
+%div{ 'ng-init'=>"init(#{@objects.to_json}, '/admin/catalogs', '#{params[:search]}', #{@total_rows}, #{Kaminari.config.default_per_page})", "resize" => "" }
+  .grid-content
+    .col-lg-9.col-md-9{ style: "padding:0px;" } 
+      .list-wrapper
+        .panel.panel-default
+          - flash.each do |name, msg|
+            - if msg.is_a?(String)
+              %div{:class => "alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'} pull-right", id: "message_alerts"}
+                %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} &times;
+                = content_tag :div, msg, :id => "flash_#{name}"
+          .panel-heading#list-heading
+            - if can? :new, InyxCatalogRails::Catalog
+              = link_to new_catalog_path, title: t("admin.buttons.new"), class: "btn btn-default btn-action" do
+                %i.fa.fa-plus
+            %a.btn.btn-default.btn-action{"ng-click" => "refresh()", "ng-disabled" => "pagesItemsSelected[currentPageServer].length != 0", :title => t("admin.buttons.refresh") }
+              %i.fa.fa-refresh#icon-refresh{'ng-show'=>"!loadingRefresh"}
+              %i.fa.fa-refresh.fa-spin{'ng-show'=>"loadingRefresh"}
+            - if can? :delete, InyxCatalogRails::Catalog
+              %a.btn.btn-default.btn-action{"ng-show" => "objects.length", "ng-click" => "allSelected(objects)", :title => t("admin.buttons.select_all") }
+                %i.fa.fa-square-o{"ng-show" => "!btnDelete"}
+                %i.fa.fa-check-square-o{ "ng-show" => "btnDelete" } 
+              %a.btn.btn-default.btn-action#btn-delete{ "ng-show" => "btnDelete", "ng-click" => "destroy('¿Estas seguro de querer eliminar los catalogos seleccionados?')", :title => t("admin.buttons.trash") }
+                %i.fa.fa-circle-o-notch.fa-spin{ 'ng-show' => "loadingDelete" }
+                %i.fa.fa-trash-o{ 'ng-show' => "!loadingDelete" }
+            .paginator.pull-right{ "ng-show" => "objects.length > 0"}
+              %button.btn.btn-default.pull-right.hidden-xs{'disabled'=>"", style:"color:#000; margin-left:3px;"}
+                Página {{currentPage+1}} de {{numberOfPages()}}
+              %a.btn.btn-default.pull-right.next{ "ng-disabled"=>"currentPage >= total_objects/pageSize - 1 || loadingNext", "ng-click"=>"next()", style: "margin-left:3px" }
+                %i.fa.fa-circle-o-notch.fa-spin{ 'ng-show' => "loadingNext" }
+                %i.fa.fa-arrow-right{ 'ng-show' => "!loadingNext" }
+              %a.btn.btn-default.pull-right.last{'ng-disabled'=>"currentPage == 0 || loadingLast", "ng-click"=>"last()"}
+                %i.fa.fa-circle-o-notch.fa-spin{ 'ng-show' => "loadingLast" }
+                %i.fa.fa-arrow-left{ 'ng-show' => "!loadingLast" }
+          .panel-body{ style: "border-right: 1px solid #e7e7e7;" }
+            #table-scroll
+              %table.grid{style: "width:100%"}
+                %tbody
+                  %tr{ class: "select-{{object.checked}}", "ng-click" => "show_object(object)", :id => "row-{{object.id}}", "ng-repeat" => "object in objects | startFrom:currentPage*pageSize | limitTo:pageSize"}
+                    - if can? :delete, InyxCatalogRails::Catalog
+                      %td{ width: "1px;" }
+                        .checkboxFour
+                          %input.checkboxFourInput{:id => "check-{{object.id}}", :type => "checkbox", "ng-model" => "object.checked", "ng-click" => "selected(object); $event.stopPorpagation();" }
+                          %label{ for: "check-{{object.id}}" }
+                            %span
+                    %td {{ object.name }}
+                    %td {{ object.category }}
+                    %td{"ng-show"=>"object.public_this", style:"font-size:20px"} 
+                      %i.fa.fa-check-circle-o
+                    %td{"ng-show"=>"!object.public_this", style:"font-size:20px"}
+                      %i.fa.fa-times-circle-o
+                  %tr{"ng-show" => "!objects.length"}
+                    %td{:style => "width:100%"}
+                      %center
+                        %i.fa.fa-frown-o
+                        No hay Catalogos.
+      
+    .col-lg-3.col-md-3{ style: "padding:0px;"}
+      .show-wrapper
+        .show-head
+        .show-body
+          .panel.panel-default
+            .panel-heading{ style: "height:55px;" }
+              .actions{ "ng-show" => "object_data" }
+                .title.pull-left{ style: "margin-top:6px;" }
+                  %i.fa.fa-user
+                  Catalogo - {{ object_data.id }}
+                - if can? :destroy, InyxCatalogRails::Catalog
+                  = link_to "{{destroy_path(object_data.id)}}", title: t('admin.actions.delete'), :method => :delete, :data => { :confirm => '¿Estas seguro de querer eliminar este catalogo?' }, class: "btn btn-default btn-action pull-right", "ng-show" => "object_data" do
+                    %i.fa.fa-remove
+                - if can? :edit, InyxCatalogRails::Catalog
+                  = link_to "{{edit_path(object_data.id)}}", title: t('admin.actions.edit'), class: "btn btn-default btn-action pull-right", "ng-show" => "object_data", style: "margin-right:3px;" do
+                    %i.fa.fa-pencil
+              .actions{ "ng-show" => "!object_data", style: "margin-top:6px;" }
+                %i.fa.fa-user
+                Catalogo
+            .panel-body
+              .data{ style: "height: {{windowHeight-104}}px;" }
+                .attributes{ "ng-show" => "object_data" }
+                  %label Nombre: 
+                  {{object_data.name}}
+                  %br
+                  %label Descripción: 
+                  {{object_data.description}}
+                  %br/
+                  %label Categoria:
+                  {{object_data.category}}
+                  %br/
+                  %label Fecha de creación:
+                  {{object_data.created_at | date:'d MMMM yyyy - H:mm'}}
+                  %br/
+                  %label Publicar:
+                  %i.fa.fa-check-circle-o{"ng-show"=>"object_data.public_this", style:"font-size:20px"}
+                  %i.fa.fa-times-circle-o{"ng-show"=>"!object_data.public_this", style:"font-size:20px"}
+                      
+                  %br/
+                .attributes{ "ng-show" => "!object_data"}
+                  %center
+                    No se ha seleccionado un catalogo para mostrar.
+        .show-footer
