@@ -1,4 +1,4 @@
-%div{ 'ng-init'=>"init(#{@objects.to_json}, '/admin/catalogs', '#{params[:search]}', #{@total_rows}, #{Kaminari.config.default_per_page})", "resize" => "" }
+%div{ 'ng-init'=>"init(#{@objects.to_json}, '/admin/catalogs/#{params[:catalog_id]}/attachments', '#{params[:search]}', #{@total_rows}, #{Kaminari.config.default_per_page})", "resize" => "" }
   .grid-content
     .col-lg-9.col-md-9{ style: "padding:0px;" } 
       .list-wrapper
@@ -9,18 +9,19 @@
                 %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} &times;
                 = content_tag :div, msg, :id => "flash_#{name}"
           .panel-heading#list-heading
-            
-            - if can? :new, InyxCatalogRails::Catalog
-              = link_to new_catalog_path, title: t("admin.buttons.new"), class: "btn btn-default btn-action" do
+            = link_to catalogs_path, title: "Ir atrás", class: "btn btn-default btn-action" do
+              %i.fa.fa-arrow-left
+            - if can? :new, InyxCatalogRails::Attachment
+              = link_to new_catalog_attachment_path, title: t("admin.buttons.new"), class: "btn btn-default btn-action" do
                 %i.fa.fa-plus
             %a.btn.btn-default.btn-action{"ng-click" => "refresh()", "ng-disabled" => "pagesItemsSelected[currentPageServer].length != 0", :title => t("admin.buttons.refresh") }
               %i.fa.fa-refresh#icon-refresh{'ng-show'=>"!loadingRefresh"}
               %i.fa.fa-refresh.fa-spin{'ng-show'=>"loadingRefresh"}
-            - if can? :delete, InyxCatalogRails::Catalog
+            - if can? :delete, InyxCatalogRails::Attachment
               %a.btn.btn-default.btn-action{"ng-show" => "objects.length", "ng-click" => "allSelected(objects)", :title => t("admin.buttons.select_all") }
                 %i.fa.fa-square-o{"ng-show" => "!btnDelete"}
                 %i.fa.fa-check-square-o{ "ng-show" => "btnDelete" } 
-              %a.btn.btn-default.btn-action#btn-delete{ "ng-show" => "btnDelete", "ng-click" => "destroy('¿Estas seguro de querer eliminar los catálogos seleccionados?, Esta acción eliminará todos los archivos pertenecientes a el.')", :title => t("admin.buttons.trash") }
+              %a.btn.btn-default.btn-action#btn-delete{ "ng-show" => "btnDelete", "ng-click" => "destroy('¿Estas seguro de querer eliminar los catalogos seleccionados?')", :title => t("admin.buttons.trash") }
                 %i.fa.fa-circle-o-notch.fa-spin{ 'ng-show' => "loadingDelete" }
                 %i.fa.fa-trash-o{ 'ng-show' => "!loadingDelete" }
             .paginator.pull-right{ "ng-show" => "objects.length > 0"}
@@ -33,24 +34,24 @@
                 %i.fa.fa-circle-o-notch.fa-spin{ 'ng-show' => "loadingLast" }
                 %i.fa.fa-arrow-left{ 'ng-show' => "!loadingLast" }
           .panel-body{ style: "border-right: 1px solid #e7e7e7;" }
+            = @object
             #table-scroll
               %table.grid{style: "width:100%"}
                 %tbody
                   %tr{ class: "select-{{object.checked}}", "ng-click" => "show_object(object)", :id => "row-{{object.id}}", "ng-repeat" => "object in objects | startFrom:currentPage*pageSize | limitTo:pageSize"}
-                    - if can? :delete, InyxCatalogRails::Catalog
+                    - if can? :delete, InyxCatalogRails::Attachment
                       %td{ width: "1px;" }
                         .checkboxFour
                           %input.checkboxFourInput{:id => "check-{{object.id}}", :type => "checkbox", "ng-model" => "object.checked", "ng-click" => "selected(object); $event.stopPorpagation();" }
                           %label{ for: "check-{{object.id}}" }
                             %span
                     %td {{ object.name }}
-                    %td {{ object.category }}
-                    %td {{ object.public_this }}             
+                    %td {{ object.public_this }}
                   %tr{"ng-show" => "!objects.length"}
                     %td{:style => "width:100%"}
                       %center
                         %i.fa.fa-frown-o
-                        No hay Catalogos.
+                        No hay archivos.
       
     .col-lg-3.col-md-3{ style: "padding:0px;"}
       .show-wrapper
@@ -61,21 +62,22 @@
               .actions{ "ng-show" => "object_data" }
                 .title.pull-left{ style: "margin-top:6px;" }
                   %i.fa.fa-user
-                  Catalogo - {{ object_data.id }}
-                - if can? :destroy, InyxCatalogRails::Catalog
-                  = link_to "{{destroy_path(object_data.id)}}", title: t('admin.actions.delete'), :method => :delete, :data => { :confirm => '¿Estas seguro de querer eliminar el catálogo seleccionados?, Esta acción eliminará todos los archivos pertenecientes a el.' }, class: "btn btn-default btn-action pull-right", "ng-show" => "object_data" do
+                  Archivo - {{ object_data.id }}
+                - if can? :destroy, InyxCatalogRails::Attachment
+                  = link_to "{{destroy_path(object_data.id)}}", title: t('admin.actions.delete'), :method => :delete, :data => { :confirm => '¿Estas seguro de querer eliminar este catalogo?' }, class: "btn btn-default btn-action pull-right", "ng-show" => "object_data" do
                     %i.fa.fa-remove
-                - if can? :edit, InyxCatalogRails::Catalog
+                - if can? :edit, InyxCatalogRails::Attachment
                   = link_to "{{edit_path(object_data.id)}}", title: t('admin.actions.edit'), class: "btn btn-default btn-action pull-right", "ng-show" => "object_data", style: "margin-right:3px;" do
-                    %i.fa.fa-pencil
-                = link_to "/admin/catalogs/{{object_data.id}}/attachments", title: "Ver Archivos", class: "btn btn-default btn-action pull-right", "ng-show" => "object_data", style: "margin-right:3px;" do
-                  %i.fa.fa-folder-open
+                    %i.fa.fa-pencil                
               .actions{ "ng-show" => "!object_data", style: "margin-top:6px;" }
                 %i.fa.fa-user
-                Catalogo
+                Archivo
             .panel-body
-              .data{ style: "height: {{windowHeight-104}}px;" }
-                %img{ "ng-show" => "object_data.cover", "ng-src" => "{{object_data.cover}}"}
+              .data{ style: "height: {{windowHeight-104}}px;", 'ng-controller'=>"iframeCtrl" }
+                %img{ "ng-if" => "object_data.image && object_data.upload=='1'", "ng-src" => "{{object_data.image}}"}
+                %img{ "ng-if" => "object_data.url && object_data.upload=='2'", "ng-src" => "{{object_data.url}}"}
+                %div{ "ng-if" => "object_data.url && object_data.upload=='3'"}
+                  %iframe.video-player.img-responsive{:allowfullscreen => "", :frameborder => "0",:src =>'{{iframe_url(object_data.url)}}'}
                 .attributes{ "ng-show" => "object_data" }
                   %label Nombre: 
                   {{object_data.name}}
@@ -83,21 +85,14 @@
                   %label Descripción: 
                   {{object_data.description}}
                   %br/
-                  %label Categoria:
-                  {{object_data.category}}
-                  %br/
                   %label Fecha de creación:
                   {{object_data.created_at}}
                   %br/
                   %label Publicar:
                   {{object_data.public_this}}
-                  %br/
-                  %label Archivos:
-                  {{ object_data.count_attachments }} archivo(s) 
-                  
                       
                   %br/
                 .attributes{ "ng-show" => "!object_data"}
                   %center
-                    No se ha seleccionado un catalogo para mostrar.
+                    No se ha seleccionado un archivos para mostrar.
         .show-footer

@@ -1,0 +1,60 @@
+= simple_form_for(@catalog) do |f|
+  .container_form 
+    .title_form
+      Datos del Catalogo
+    .form-p
+      .input#name{ class: "#{@catalog.name.blank? ? 'input-false' : 'input-great' }"}
+        = f.input :name, label: 'Nombre', input_html: { class: 'input_form', id: "input-name", "ng-focus" => "inputFocus('name')", "ng-blur" => "inputBlur('name')" }
+
+      .input#category{ class: "#{@catalog.category.blank? ? 'input-false' : 'input-great' }"}
+        = f.input :category, label: 'Categoria', input_html: { class: 'input_form', id: "input-category", "ng-focus" => "inputFocus('category')", "ng-blur" => "inputBlur('category')" }
+
+      .input#description{ class: "#{@catalog.description.blank? ? 'input-false' : 'input-great' }"}
+        = f.input :description, label: 'Descripción', as: :text, input_html: { class: 'input_form', id: "input-description ", "ng-focus" => "inputFocus('description')", "ng-blur" => "inputBlur('description')" }
+      
+
+      %br
+      = f.input :cover, label: false, as: :file, input_html: { class: "form-control file", placeholder: 'cover', "data-buttonBefore" => false, "data-input" => false, "data-buttonText" => params[:action] == "new" ? "Subir imágen" : "Cambiar imágen", id: "input-20" }
+      %br
+      .public{style:"width:100px"}
+        = f.input :public, label: "Publicar", input_html: { style: "margin:0px;", class: 'checkstyle' }
+     
+    %br
+    .panel-footer
+      .form-actions
+        = f.button :submit, "Guardar", class: "pull-right btn btn-warning"
+      .clearfix
+
+:javascript
+    $(".checkstyle").bootstrapSwitch({
+      offColor: 'danger',
+      onColor: 'warning',
+      onText: 'Si',
+      offText: 'No',
+      animate: true,
+      size: 'mini'
+    });
+
+- if @catalog.cover.blank?
+  :javascript
+    $("#input-20").fileinput({
+      browseClass: "btn btn-primary btn-block",
+      showCaption: false,
+      showRemove: false,
+      showUpload: false,
+      browseIcon: '<i class="fa fa-folder-open"></i>',
+      browseLabel: ' Subir imágen',
+    });
+- else 
+  :javascript
+    $("#input-20").fileinput({
+      browseClass: "btn btn-primary btn-block",
+      showCaption: true,
+      captionIcon: '<i class="fa fa-folder-open"></i>',
+      showRemove: false,
+      showUpload: false,
+      browseIcon: '<i class="fa fa-folder-open"></i>',
+      browseLabel: ' Subir imágen',
+      initialPreview: ['"#{image_tag @catalog.cover, class: 'file-preview-image' if !@catalog.cover.blank?}"'],
+      initialCaption: " #{@catalog.cover.file.filename.humanize}"
+    });
