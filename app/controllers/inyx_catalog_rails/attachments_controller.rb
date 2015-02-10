@@ -65,6 +65,11 @@ module InyxCatalogRails
       redirect_to catalog_attachments_path, notice: 'Attachment was successfully destroyed.'
     end
 
+    def attachment_index
+      @catalog = Catalog.find_by_id(params[:catalog_id]);
+      @attachments = Attachment.where(:catalog_id=>params[:catalog_id])
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_attachment
@@ -78,8 +83,8 @@ module InyxCatalogRails
 
     def resolve_layout
       case action_name
-        when "index_front"
-          "inyx_catalog_rails/frontend/application"
+        when "attachment_index"
+          "frontend/application"
         else 
           "admin/application"
         end

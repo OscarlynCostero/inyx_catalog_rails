@@ -1,0 +1,25 @@
+.catalog.container	
+	.jumbotron
+		%h1 Modulo de Catalogo v.1.0.0
+		%p{aling:"justify"} Un sistema de control y registro de archivos por catalogos integrado al CMS de inyxtech. Este modulo puedo almacenar y ordenar imagenes asi como tambien servicos multimedia en la nube como:
+		%center.row{style:"font-size: 80px"}			
+			.col-lg-4.col-md-4{style:"color: red"}
+				%i.fa.fa-youtube
+			.col-lg-4.col-md-4{style:"color: rgb(0, 163, 255)"}
+				%i.fa.fa-vimeo-square
+			.col-lg-4.col-md-4{style:"color: rgb(255, 173, 0);"}
+				%i.fa.fa-soundcloud
+
+	.row
+		- @catalogs.each do |catalog| 
+			-if catalog.public == true
+				.col-sm-6.col-md-4
+					.thumbnail
+						%img{:alt => "", :src => "#{catalog.cover}"}
+							.caption
+								%h3 
+									= catalog.name
+								%p 
+									= catalog.description
+								%p
+									%a.btn.btn-warning{:href => "/catalogs/attachments/index/#{catalog.id}", :role => "button"} Ver catalogo				

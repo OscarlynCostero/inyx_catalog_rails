@@ -45,6 +45,10 @@ module InyxCatalogRails
       redirect_to catalogs_url, notice: 'Catalogo ha sido borrado satisfactoriamente.'
     end
 
+    def catalog_index
+      @catalogs = Catalog.all
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_catalog
@@ -58,8 +62,8 @@ module InyxCatalogRails
 
     def resolve_layout
       case action_name
-        when "index_front"
-          "inyx_catalog_rails/frontend/application"
+        when "catalog_index"
+          "frontend/application"
         else 
           "admin/application"
         end
