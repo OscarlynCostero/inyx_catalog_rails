@@ -4,7 +4,6 @@ angular.module('catalog', ['ngSanitize'])
 
 
 		$scope.iframe_url = function(url) {
-			console.log("dfd");
 			return $sce.trustAsResourceUrl(url);
 		}
 
