@@ -6,6 +6,7 @@ PATH
       haml_rails
       rails (~> 4.1.4)
       simple_form
+      soundcloud
 
 GEM
   remote: https://rubygems.org/
@@ -45,14 +46,25 @@ GEM
       mime-types (>= 1.16)
     erubis (2.7.0)
     haml_rails (0.1.0)
+    hashie (2.1.2)
     hike (1.2.3)
+    httmultiparty (0.3.16)
+      httparty (>= 0.7.3)
+      mimemagic
+      multipart-post
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
+    mimemagic (0.2.1)
     minitest (5.5.1)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -75,6 +87,9 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    soundcloud (0.3.2)
+      hashie (~> 2.0)
+      httmultiparty (~> 0.3.0)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)

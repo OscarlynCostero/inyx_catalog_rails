@@ -17,7 +17,8 @@ module InyxCatalogRails
         image: self.image.url,
         url: self.url,
         public_this: self.public ? "Publicado" : "No publicado",
-        created_at: self.created_at.strftime("%d-%m-%Y")
+        created_at: self.created_at.strftime("%d-%m-%Y"),
+        catalog_id: self.catalog_id
       }
     end
 
@@ -59,25 +60,35 @@ module InyxCatalogRails
     def url_iframe_service
       if !self.url.blank?
         video = self.detected_video_service
-        case video.keys.first
-          when "youtube"
-            self.url="https://www.youtube.com/embed/"+video.values.first
-          when "vimeo"
-            self.url="https://player.vimeo.com/video/"+video.values.first
-          when "soundcloud"
-            detected_soundcloud_sets
-          end
+        begin
+          case video.keys.first
+            when "youtube"
+              self.url="https://www.youtube.com/embed/"+video.values.first
+            when "vimeo"
+              self.url="https://player.vimeo.com/video/"+video.values.first
+            when "soundcloud"
+              detected_soundcloud_sets
+            else
+              self.url=""
+            end
+        rescue
+          self.url=""
+        end
       end
     end
 
     def detected_soundcloud_sets
       client = Soundcloud.new(:client_id => 'YOUR_CLIENT_ID')
-      track = client.get('/resolve', :url => self.url)
-      if self.url.split(/\W+/).include?("sets")
-        self.url="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/#{track.id}&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
-      else
-        self.url="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/#{track.id}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
-      end 
+      begin
+        track = client.get('/resolve', :url => self.url)
+        if self.url.split(/\W+/).include?("sets")
+          self.url="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/#{track.id}&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
+        else
+          self.url="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/#{track.id}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
+        end 
+      rescue Soundcloud::ResponseError => e
+        
+      end
     end
 
     def detected_video_service

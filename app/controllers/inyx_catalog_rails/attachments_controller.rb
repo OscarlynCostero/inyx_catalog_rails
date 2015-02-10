@@ -62,7 +62,7 @@ module InyxCatalogRails
     # DELETE /attachments/1
     def destroy
       @attachment.destroy
-      redirect_to attachments_url, notice: 'Attachment was successfully destroyed.'
+      redirect_to catalog_attachments_path, notice: 'Attachment was successfully destroyed.'
     end
 
     private

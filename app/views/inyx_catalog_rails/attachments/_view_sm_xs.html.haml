@@ -23,10 +23,10 @@
 								%label{ for: "check-{{object.id}}" }
 									%span
 					%td
-						= link_to "/admin/catalogs/{{object.id}}/attachments", style: "width:100%;" do
+						= link_to "/admin/catalogs/{{object.catalog_id}}/attachments/{{object.id}}", style: "width:100%;" do
 							{{ object.name }}
 					%td 
-						= link_to "/admin/catalogs/{{object.id}}/attachments", style: "width:100%;" do
+						= link_to "/admin/catalogs/{{object.catalog_id}}/attachments/{{object.id}}", style: "width:100%;" do
 							{{ object.public_this}}
 					%td
 						= link_to "/admin/catalogs/{{object.id}}/attachments", style: "width:100%;" do

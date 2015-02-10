@@ -8,7 +8,7 @@
         = f.input :name, label: 'Nombre', input_html: { class: 'input_form', id: "input-name", "ng-focus" => "inputFocus('name')", "ng-blur" => "inputBlur('name')" }
 
       .input#upload{ class: "#{@attachment.upload.blank? ? 'input-false' : 'input-great' }"}
-        = f.input :upload, label: 'Tipo de archivo', collection: [["Subir imagen", 1], ["Imagen por url", 2], ["Video por url", 3]], input_html: { class: 'input_form', id: "input-upload", "ng-focus" => "inputFocus('upload')", "ng-blur" => "inputBlur('upload')" }
+        = f.input :upload, label: 'Tipo de archivo', collection: [["Subir imagen", 1], ["Imagen por url", 2], ["Video por url", 3], ["Musica por url", 3]], input_html: { class: 'input_form', id: "input-upload", "ng-focus" => "inputFocus('upload')", "ng-blur" => "inputBlur('upload')" }
 
 
       .input#description{ class: "#{@attachment.description.blank? ? 'input-false' : 'input-great' }"}
