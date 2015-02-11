@@ -1,0 +1,17 @@
+.catalog.container	
+	.jumbotron
+		- if @attachment.image && @attachment.upload=='1'
+			%img{src:"#{@attachment.image}"}
+		- if @attachment.url && @attachment.upload=='2'
+			%img{src:"#{@attachment.url}"}		
+		- if @attachment.url && @attachment.upload=='3'
+			%iframe.video-player.img-responsive{:allowfullscreen => "", style:"height:500px;",:frameborder => "0",:src =>"#{@attachment.url}"}
+		%h1 
+			=@attachment.name
+		%p{aling:"justify"}
+			%b Descripcion:
+			=@attachment.description
+		%p{aling:"justify"}
+			%b Fecha de creación:
+			=@attachment.created_at
+

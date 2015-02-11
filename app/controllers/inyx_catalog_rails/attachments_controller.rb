@@ -70,6 +70,10 @@ module InyxCatalogRails
       @attachments = Attachment.where(:catalog_id=>params[:catalog_id])
     end
 
+    def attachment_show
+      @attachment = Attachment.find_by_id(params[:id])
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_attachment
@@ -83,7 +87,7 @@ module InyxCatalogRails
 
     def resolve_layout
       case action_name
-        when "attachment_index"
+        when "attachment_index", "attachment_show"
           "frontend/application"
         else 
           "admin/application"

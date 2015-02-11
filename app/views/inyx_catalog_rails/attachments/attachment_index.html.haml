@@ -2,15 +2,17 @@
 	.jumbotron
 		%h1 
 			=@catalog.name
+		%p{aling:"justify"}
+			=@catalog.description
 	.row
 		- @attachments.each do |attachment| 
 			-if attachment.public == true
 				.col-sm-6.col-md-4
 					.thumbnail
 						- if attachment.image && attachment.upload=='1'
-							%img{src:"#{@attachment.image}"}
+							%img{src:"#{attachment.image}"}
 						- if attachment.url && attachment.upload=='2'
-							%img{src:"#{@attachment.url}"}		
+							%img{src:"#{attachment.url}"}		
 						- if attachment.url && attachment.upload=='3'
 							%iframe.video-player.img-responsive{:allowfullscreen => "", :frameborder => "0",:src =>"#{attachment.url}"}
 							.caption
@@ -19,4 +21,4 @@
 								%p 
 									= attachment.description
 								%p
-									%a.btn.btn-warning{:href => "#", :role => "button"} Ver				
+									%a.btn.btn-warning{:href => "/catalogos/#{attachment.catalog_id}/archivos/#{attachment.id}", :role => "button"} Ver				

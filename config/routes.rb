@@ -1,7 +1,8 @@
 InyxCatalogRails::Engine.routes.draw do
 
-	get '/catalogs/index', to: 'catalogs#catalog_index'
-	get '/catalogs/attachments/index/:catalog_id', to: 'attachments#attachment_index'
+	get '/catalogos', to: 'catalogs#catalog_index'
+	get '/catalogos/:catalog_id/archivos', to: 'attachments#attachment_index'
+	get '/catalogos/:catalog_id/archivos/:id', to: 'attachments#attachment_show'
 
   scope :admin do
 	  resources :catalogs do
