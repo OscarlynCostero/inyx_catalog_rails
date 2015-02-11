@@ -67,7 +67,8 @@ module InyxCatalogRails
             when "vimeo"
               self.url="https://player.vimeo.com/video/"+video.values.first
             when "soundcloud"
-              detected_soundcloud_sets
+              detected_soundcloud_sets              
+            when "imagen"
             else
               self.url=""
             end
@@ -94,6 +95,9 @@ module InyxCatalogRails
     def detected_video_service
       ["youtube", "vimeo", "soundcloud"].each do |service|     
         return { service=>self.url.split(/\W+/).last } if self.url.split(/\W+/).include?(service)
+      end
+      if self.upload == "2"
+        {"imagen"=>""}
       end
     end
     
