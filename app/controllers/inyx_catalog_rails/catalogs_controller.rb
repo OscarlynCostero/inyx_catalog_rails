@@ -63,7 +63,7 @@ module InyxCatalogRails
     def resolve_layout
       case action_name
         when "catalog_index"
-          "frontend/application"
+          "inyx_catalog_rails/frontend/application"
         else 
           "admin/application"
         end

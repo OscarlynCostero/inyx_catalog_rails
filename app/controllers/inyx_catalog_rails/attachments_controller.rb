@@ -88,7 +88,7 @@ module InyxCatalogRails
     def resolve_layout
       case action_name
         when "attachment_index", "attachment_show"
-          "frontend/application"
+          "inyx_catalog_rails/frontend/application"
         else 
           "admin/application"
         end
