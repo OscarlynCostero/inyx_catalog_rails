@@ -6,6 +6,7 @@ class CreateInyxCatalogRailsAttachments < ActiveRecord::Migration
       t.text :description
       t.string :image
       t.text :url
+      t.text :target
       t.belongs_to :catalog
       t.boolean :public
 

@@ -31,6 +31,9 @@
 			%label= t('attachment.description')+': '
 			= @attachment.description
 			%br/
+			%label= t('attachment.enlace_externo')+': '
+			= @attachment.target
+			%br/
 			%label= t('attachment.fecha')+': '
 			= @attachment.created_at.strftime("%d-%m-%Y")
 			%br/

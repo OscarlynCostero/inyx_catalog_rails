@@ -16,6 +16,7 @@ module InyxCatalogRails
         description: self.description,
         image: self.image.url,
         url: self.url,
+        target: self.target,
         public_this: self.public ? "Publicado" : "No publicado",
         created_at: self.created_at.strftime("%d-%m-%Y"),
         catalog_id: self.catalog_id

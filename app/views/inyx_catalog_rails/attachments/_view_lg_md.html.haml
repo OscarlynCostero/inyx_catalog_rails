@@ -90,6 +90,10 @@
                   %br/
                   %label Publicar:
                   {{object_data.public_this}}
+                  %br/
+                  %label{"ng-if" => "object_data.target"} Enlace externo:
+                  %a{href: "{{object_data.target}}", "ng-if" => "object_data.target"}
+                    {{object_data.target}}
                       
                   %br/
                 .attributes{ "ng-show" => "!object_data"}

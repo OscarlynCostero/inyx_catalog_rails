@@ -82,7 +82,7 @@ module InyxCatalogRails
 
       # Only allow a trusted parameter "white list" through.
       def attachment_params
-        params.require(:attachment).permit(:name, :upload, :description, :image, :url, :public, :catalog_id)
+        params.require(:attachment).permit(:name, :upload, :description, :image, :url, :target, :public, :catalog_id)
       end
 
     def resolve_layout

@@ -8,14 +8,27 @@
 		- @attachments.each do |attachment| 
 			-if attachment.public == true
 				.col-sm-6.col-md-4
-					%a{:href => "/catalogos/#{attachment.catalog_id}/archivos/#{attachment.id}"}
-						.thumbnail
-							- if attachment.image && attachment.upload=='1'
-								%img{src:"#{attachment.image}"}
-							- if attachment.url && attachment.upload=='2'
-								%img{src:"#{attachment.url}"}		
-							- if attachment.url && attachment.upload=='3'
-								%iframe.video-player.img-responsive{:allowfullscreen => "", :frameborder => "0",:src =>"#{attachment.url}"}
-							.caption
-								%h3 
-									= attachment.name		
+					- if attachment.target.blank?
+						%a{:href => "/catalogos/#{attachment.catalog_id}/archivos/#{attachment.id}"}
+							.thumbnail
+								- if attachment.image && attachment.upload=='1'
+									%img{src:"#{attachment.image}"}
+								- if attachment.url && attachment.upload=='2'
+									%img{src:"#{attachment.url}"}		
+								- if attachment.url && attachment.upload=='3'
+									%iframe.video-player.img-responsive{:allowfullscreen => "", :frameborder => "0",:src =>"#{attachment.url}"}
+								.caption
+									%h3 
+										= attachment.name					
+					- else 	
+						%a{:href => "#{attachment.target}"}
+							.thumbnail
+								- if attachment.image && attachment.upload=='1'
+									%img{src:"#{attachment.image}"}
+								- if attachment.url && attachment.upload=='2'
+									%img{src:"#{attachment.url}"}		
+								- if attachment.url && attachment.upload=='3'
+									%iframe.video-player.img-responsive{:allowfullscreen => "", :frameborder => "0",:src =>"#{attachment.url}"}
+								.caption
+									%h3 
+										= attachment.name	
