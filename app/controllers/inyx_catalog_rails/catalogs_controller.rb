@@ -33,6 +33,7 @@ module InyxCatalogRails
     # PATCH/PUT /catalogs/1
     def update
       if @catalog.update(catalog_params)
+        @catalog.__elasticsearch__.index_document
         redirect_to catalogs_path, notice: 'Catalog was successfully updated.'
       else
         render :edit
