@@ -44,7 +44,7 @@ module InyxCatalogRails
     end
 
     def self.query(query)
-	    { query: { multi_match:  { query: query, fields: [:name, :description, :category, :public, :created_at] , operator: :and }  }, sort: { id: "desc" }, size: Catalog.count }
+	    { query: { multi_match:  { query: query, fields: [:name, :description, :category, :public_this, :created_at] , operator: :and }  }, sort: { id: "desc" }, size: Catalog.count }
 	  end
     
   end
