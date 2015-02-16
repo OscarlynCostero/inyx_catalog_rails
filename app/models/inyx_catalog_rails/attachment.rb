@@ -55,7 +55,7 @@ module InyxCatalogRails
     end
 
     def self.query(query)
-	    { query: { multi_match:  { query: query, fields: [:name, :type, :description, :public, :created_at] , operator: :and }  }, sort: { id: "desc" }, size: Attachment.count }
+	    { query: { multi_match:  { query: query, fields: [:name, :type, :description, :public_this, :created_at] , operator: :and }  }, sort: { id: "desc" }, size: Attachment.count }
 	  end
 
     def url_iframe_service
