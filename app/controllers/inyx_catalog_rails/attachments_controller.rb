@@ -53,6 +53,7 @@ module InyxCatalogRails
     # PATCH/PUT /attachments/1
     def update
       if @attachment.update(attachment_params)
+        @attachment.__elasticsearch__.index_document
         redirect_to catalog_attachments_path, notice: 'Attachment was successfully updated.'
       else
         render :edit
