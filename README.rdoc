@@ -32,13 +32,13 @@ rake inyx_catalog_rails:install:migrations
 rake db:migrate
 ```
 
-añadir la siguiente linea a su manifesto javascript `application.js`
+añadir la siguiente linea a su manifesto javascript `admin/application.js`
 
 ```ruby
 //= require inyx_catalog_rails/application
 ```
 
-añadir la siguiente linea a su manifesto javascript `application.css`
+añadir la siguiente linea a su manifesto javascript `admin/application.css`
 
 ```ruby
 *= require inyx_catalog_rails/application
@@ -53,9 +53,9 @@ mount InyxCatalogRails::Engine, :at => '', as: 'catalog'
 Por ultimo ir al directorio `app/assets/javascript/` y abrir el archivo main.js y agregar 'catalog' a la suigiente linea de codigo codigo, ejemplo:
 
 ```ruby
-angular.module('inyxmater', ['user']) #por defecto
+angular.module('inyxmater', ['admin']) #antes
 
-angular.module('inyxmater', ['user', 'catalog']) #debe quedar asi
+angular.module('inyxmater', ['admin', 'catalog']) #despues
 ```
 
 ## Configuración
