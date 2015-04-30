@@ -9,6 +9,7 @@ class CreateInyxCatalogRailsAttachments < ActiveRecord::Migration
       t.text :target
       t.belongs_to :catalog
       t.boolean :public
+      t.string :permalink
 
       t.timestamps
     end

@@ -7,6 +7,7 @@ module InyxCatalogRails
     after_update :remove_image
     validates_presence_of :name
     before_save :url_iframe_service
+    before_save :create_permalink
 
   	def as_json(options = {})
       {
@@ -19,8 +20,13 @@ module InyxCatalogRails
         target: self.target,
         public_this: self.public ? "Publicado" : "No publicado",
         created_at: self.created_at.strftime("%d-%m-%Y"),
-        catalog_id: self.catalog_id
+        catalog_id: self.catalog_id,
+        permalink: self.permalink
       }
+    end
+
+    def create_permalink
+      self.permalink=self.name.downcase.parameterize
     end
 
     def remove_image

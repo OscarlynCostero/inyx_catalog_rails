@@ -5,6 +5,8 @@ module InyxCatalogRails
   	include Elasticsearch::Model::Callbacks
   	has_many :attachments, :dependent => :destroy
     mount_uploader :cover, CoverUploader
+    before_save :create_permalink
+
 
   	def as_json(options = {})
       {
@@ -15,8 +17,13 @@ module InyxCatalogRails
         category: self.category,
         public_this: self.public ? "Publicado" : "No publicado",
         created_at: self.created_at.strftime("%d-%m-%Y"),        
-        count_attachments: Attachment.where(catalog_id: self.id).count
+        count_attachments: Attachment.where(catalog_id: self.id).count,
+        permalink: self.permalink
       }
+    end
+
+    def create_permalink
+      self.permalink=self.name.downcase.parameterize
     end
 
       #params[:search] is false

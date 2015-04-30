@@ -6,6 +6,7 @@ class CreateInyxCatalogRailsCatalogs < ActiveRecord::Migration
       t.string :cover
       t.string :category
       t.boolean :public
+      t.string :permalink
 
       t.timestamps
     end
